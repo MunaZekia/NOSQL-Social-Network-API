@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3000;
 const db = require("./config/connection");
 const routes = require("./routes");
 
@@ -10,5 +10,5 @@ app.use(routes);
 
 db.once('open', () => {
     app.listen(port, ()=> 
-    console.log('now listening on port ${port}'))
+    console.log(`now listening on port ${port}`))
 });

@@ -26,7 +26,8 @@ module.exports = {
   },
   // Delete a user and associated apps
   deleteUser(req, res) {
-    User.findOneAndDelete({ _id: req.params.userId })
+  
+    User.findOneAndDelete({ _id:  req.params.userId })
       .then((user) =>
         !user
           ? res.status(404).json({ message: "No user with that ID" })
@@ -37,6 +38,7 @@ module.exports = {
   },
   // Update a user
   updateUser(req, res) {
+    console.log("what did i get?",req.params.userId, req.body)
     User.findOneAndUpdate(
       { _id: req.params.userId },
       req.body,

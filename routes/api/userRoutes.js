@@ -15,11 +15,22 @@ router.route('/').get(getAllUsers)
 .post(createUser);
 
 // /api/users/:id
-router.route('/:id').get(getSingleUser)
-.put(updateUser).delete(deleteUser);
+router.route('/:userId').put(updateUser);
 
 // /api/users/:userId/friends/:friendId
 router.route('/:userId/friends/:friendId')
 .post(addFriend).delete(deleteFriend);
 
+router.route("/delete/:userId").delete(deleteUser);
+/*
+router.delete("/:userId", (req, res)=>{
+    console.log("what did i get?", req.query.userId)
+    try{
+        deleteUser(req);
+    } catch(err){
+        console.log(err)
+    }
+    
+})
+*/
 module.exports = router;
