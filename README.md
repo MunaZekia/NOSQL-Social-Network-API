@@ -44,7 +44,7 @@ Open Insomnia Core and test the API routes
 
 ## Walkthrough Video
 
-[Untitled_ Apr 27 2023 3_20 PM (1).webm](https://user-images.githubusercontent.com/117357827/234982531-a49de2d3-c235-467e-97d2-d87ffc32baff.webm)
+[Untitled_ May 7 2023 11_37 AM.webm](https://user-images.githubusercontent.com/117357827/236690824-b64f8946-672e-44e1-bf7a-e56bbf3ff237.webm)
 
 ## Contributing
 
