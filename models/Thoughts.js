@@ -33,6 +33,6 @@ const thoughtSchema = new Schema(
 thoughtSchema.virtual('reactionCount').get(function () {
     return this.reactions.length;
 });
-//const Thought = model('Thought', thoughtSchema);
-module.exports= thoughtSchema;
+const Thought = model('Thought', thoughtSchema);
+module.exports= Thought;
 // it is thoughts not thought because it is a collection of thoughts

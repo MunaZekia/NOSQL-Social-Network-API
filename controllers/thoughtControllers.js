@@ -1,4 +1,4 @@
-const { Thought, User, Reaction } = require("../models");
+const { Thought, User} = require("../models");
 
 module.exports = {
   // get all thoughts
@@ -18,9 +18,18 @@ module.exports = {
       );
   },
   // Create a new thought
-  createThought(req, res) {
-    Course.create(req.body)
-      .then((course) => res.json(course))
+  async createThought(req, res) {
+    Thought.create(req.body)
+      .then(async(thoughtData) => {
+        const userdata= await User.findOneAndUpdate({
+          _id: req.body.userId
+        },{
+          $push: { thoughts: thoughtData._id }
+        }, { new: true });
+        if (!userdata) {
+          return res.status(404).json({ message: "No user with that ID" });
+        }
+      })
       .catch((err) => {
         console.log(err);
         return res.status(500).json(err);
@@ -58,31 +67,5 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
-  // add a reaction to a thought
-  // addReaction(req, res) {
-  //   Thought.findOneAndDelete(
-  //     { _id: req.params.thoughtId },
-  //     { $addToSet: { reactions: req.body } },
-  //     //addToSet is a mongo operator that will add the data to the array
-  //     //$push will add the data to the array
-  //     //{ $push: { reactions: req.body } },
-  //     { runValidators: true, new: true }
-  //   )
-  //     .then((Thought) =>
-  //       !Thought //!thought is the same as thought === null
-  //         ? res.status(404).json({ message: "No thought with that ID" })
-  //         : res.json(Thought)
-  //     )
-  //     .catch((err) => res.status(500).json(err));
-  // },
-  // // delete a reaction from a thought
-
-  // deleteReaction(req, res) {
-  //   Thought.findOneAndDelete(
-  //     { _id: req.params.thoughtId },
-  //     { $pull: { reactions: { reactionId: req.params.reactionId } } },
-  //     //pull is a mongo operator that will remove the data from the array
-  //     { runValidators: true, new: true }
-  //   );
-  // },
+  
 };

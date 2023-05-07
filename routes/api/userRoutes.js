@@ -15,13 +15,11 @@ router.route('/').get(getAllUsers)
 .post(createUser);
 
 // /api/users/:id
-router.route('/:userId').put(updateUser);
+router.route('/:userId').put(updateUser).get(getSingleUser).delete(deleteUser);
 
 // /api/users/:userId/friends/:friendId
 router.route('/:userId/friends/:friendId')
 .post(addFriend).delete(deleteFriend);
-
-router.route("/delete/:userId").delete(deleteUser);
 /*
 router.delete("/:userId", (req, res)=>{
     console.log("what did i get?", req.query.userId)

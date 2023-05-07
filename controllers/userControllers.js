@@ -1,9 +1,13 @@
-const { User, Thought, Reaction } = require("../models");
+const { User, Thought } = require("../models");
 
 module.exports = {
   // get all users
   getAllUsers(req, res) {
     User.find()
+    .populate({
+      path: 'friends',
+      path: 'thoughts',
+    })
       .then((users) => res.json(users))
       .catch((err) => res.status(500).json(err));
   },
@@ -27,14 +31,14 @@ module.exports = {
   // Delete a user and associated apps
   deleteUser(req, res) {
   
-    User.findOneAndDelete({ _id:  req.params.userId })
+    User.findOneAndDelete({ _id:req.params.userId })
       .then((user) =>
         !user
           ? res.status(404).json({ message: "No user with that ID" })
-          : Application.deleteMany({ _id: { $in: user.applications } })
-      )
-      .then(() => res.json({ message: "User and associated apps deleted!" }))
+          : Thought.deleteMany({ _id: { $in: user.thoughts}}).then(() => res.json(user)))
       .catch((err) => res.status(500).json(err));
+      // .then(() => res.json({ message: "User and associated apps deleted!" }))
+      // .catch((err) => res.status(500).json(err));
   },
   // Update a user
   updateUser(req, res) {
